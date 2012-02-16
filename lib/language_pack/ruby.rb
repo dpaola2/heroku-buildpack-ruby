@@ -54,7 +54,6 @@ class LanguagePack::Ruby < LanguagePack::Base
       build_bundler
       create_database_yml
       install_binaries
-      install_sqlite
       run_assets_precompile_rake_task
     end
   end
@@ -306,7 +305,7 @@ ERROR
         puts `bundle config build.sqlite3-ruby --with-opt-dir=/app/sqlite3`
         puts "Running: #{bundle_command}"
         bundler_output << pipe("#{env_vars} #{bundle_command} --no-clean 2>&1")
-
+        install_sqlite
       end
 
       if $?.success?
