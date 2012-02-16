@@ -11,7 +11,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   BUNDLER_GEM_PATH    = "bundler-#{BUNDLER_VERSION}"
   NODE_VERSION        = "0.4.7"
   NODE_JS_BINARY_PATH = "node-#{NODE_VERSION}"
-  SQLITE3_BUILD_PATH  = "/app/vendor/bundle/sqlite3"
+  SQLITE3_BUILD_PATH  = "/app/sqlite3"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -218,6 +218,7 @@ ERROR
   def install_binaries
     binaries.each {|binary| install_binary(binary) }
     Dir["bin/*"].each {|path| run("chmod +x #{path}") }
+    install_sqlite3
   end
 
   # vendors individual binary into the slug
