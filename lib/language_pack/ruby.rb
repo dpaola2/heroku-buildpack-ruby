@@ -11,6 +11,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   BUNDLER_GEM_PATH    = "bundler-#{BUNDLER_VERSION}"
   NODE_VERSION        = "0.4.7"
   NODE_JS_BINARY_PATH = "node-#{NODE_VERSION}"
+  SQLITE3_BUILD_PATH  = "/app/vendor/bundle/sqlite3"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
@@ -247,12 +248,12 @@ ERROR
 
   def install_sqlite
     puts "Retrieving sqlite3 source"
-    FileUtils.mkdir_p "/app/vendor/sqlite3"
-    Dir.chdir("/app/vendor/sqlite3") do |dir|
+    FileUtils.mkdir_p "#{SQLITE3_BUILD_PATH}"
+    Dir.chdir("#{SQLITE3_BUILD_PATH}") do |dir|
       puts `curl http://www.sqlite.org/sqlite-autoconf-3071000.tar.gz | tar -xvzf -`
-      Dir.chdir("/app/vendor/sqlite3/sqlite-autoconf-3071000") do |d|
+      Dir.chdir("#{SQLITE3_BUILD_PATH}/sqlite-autoconf-3071000") do |d|
         puts "Building..."
-        puts `./configure --prefix=/app/vendor/sqlite3 && make && make install`
+        puts `./configure --prefix=#{SQLITE3_BUILD_PATH} && make && make install`
       end
     end
   end
