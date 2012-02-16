@@ -274,7 +274,7 @@ ERROR
       else
         # using --deployment is preferred if we can
         bundle_command += " --deployment"
-        cache_load ".bundle"
+        #cache_load ".bundle"
       end
 
       cache_load "vendor/bundle"
