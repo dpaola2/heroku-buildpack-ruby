@@ -263,15 +263,7 @@ ERROR
   end
 
   def install_sqlite
-    puts "Retrieving sqlite3 source"
-    FileUtils.mkdir_p "#{SQLITE3_BUILD_PATH}"
-    Dir.chdir("#{SQLITE3_BUILD_PATH}") do |dir|
-      puts `curl http://www.sqlite.org/sqlite-autoconf-3071000.tar.gz | tar -xvzf -`
-      Dir.chdir("#{SQLITE3_BUILD_PATH}/sqlite-autoconf-3071000") do |d|
-        puts "Building..."
-        puts `./configure --prefix=#{SQLITE3_BUILD_PATH} && make && make install`
-      end
-    end
+    puts `gem install sqlite3-ruby --install-dir=/app/vendor/bundle/ruby/1.9.1/ -- --with-opt-dir=/app/lib`
   end
 
   # runs bundler to install the dependencies
