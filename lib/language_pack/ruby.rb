@@ -250,7 +250,7 @@ ERROR
     FileUtils.mkdir_p "sqlite3"
     Dir.chdir("sqlite3") do |dir|
       `curl http://www.davezor.net/sqlite.tgz | tar xvzf -`
-      `gcc -DSQLITE_THREADSAFE=0 -DSQLITE_OMIT_LOAD_EXTENSION shell.c sqlite3.c -o sqlite3`
+      `gcc -o libtclsqlite3.so -shared tclsqlite3.c -lpthread -ldl -ltcl`
     end
   end
 
