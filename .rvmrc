@@ -1,0 +1,3 @@
+rvm use 1.9.2@heroku-buildpack-ruby
+
+if [[ -s $PWD/.rvmrc.local ]] ; then source $PWD/.rvmrc.local; fi
