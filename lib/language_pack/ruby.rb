@@ -50,10 +50,10 @@ class LanguagePack::Ruby < LanguagePack::Base
     setup_language_pack_environment
     allow_git do
       install_language_pack_gems
+      install_custom_libraries
       build_bundler
       create_database_yml
       install_binaries
-      install_custom_libraries
       run_assets_precompile_rake_task
     end
   end
