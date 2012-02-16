@@ -54,7 +54,6 @@ class LanguagePack::Ruby < LanguagePack::Base
       create_database_yml
       install_binaries
       run_assets_precompile_rake_task
-
     end
   end
 
@@ -248,12 +247,12 @@ ERROR
 
   def install_sqlite
     puts "Retrieving sqlite3 source"
-    FileUtils.mkdir_p "sqlite3"
-    Dir.chdir("sqlite3") do |dir|
+    FileUtils.mkdir_p "/app/vendor/sqlite3"
+    Dir.chdir("/app/vendor/sqlite3") do |dir|
       puts `curl http://www.sqlite.org/sqlite-autoconf-3071000.tar.gz | tar -xvzf -`
-      Dir.chdir("sqlite-autoconf-3071000") do |d|
+      Dir.chdir("/app/vendor/sqlite3/sqlite-autoconf-3071000") do |d|
         puts "Building..."
-        puts `./configure --prefix=/app/sqlite3 && make && make install`
+        puts `./configure --prefix=/app/vendor/sqlite3 && make && make install`
       end
     end
   end
@@ -283,11 +282,10 @@ ERROR
       topic("Installing dependencies using #{version}")
 
       bundler_output = ""
-      #install_sqlite
       Dir.mktmpdir("libyaml-") do |tmpdir|
         libyaml_dir = "#{tmpdir}/#{LIBYAML_PATH}"
         install_libyaml(libyaml_dir)
-        
+
         # need to setup compile environment for the psych gem
         yaml_include   = File.expand_path("#{libyaml_dir}/include")
         yaml_lib       = File.expand_path("#{libyaml_dir}/lib")
@@ -305,7 +303,7 @@ ERROR
         log "bundle", :status => "success"
         puts "Cleaning up the bundler cache."
         run "bundle clean"
-        cache_store ".bundle"
+        #cache_store ".bundle"
         cache_store "vendor/bundle"
       else
         log "bundle", :status => "failure"
