@@ -275,7 +275,7 @@ end
       topic("Installing dependencies using #{version}")
 
       bundler_output = ""
-      install_sqlite
+      #install_sqlite
       Dir.mktmpdir("libyaml-") do |tmpdir|
         libyaml_dir = "#{tmpdir}/#{LIBYAML_PATH}"
         install_libyaml(libyaml_dir)
