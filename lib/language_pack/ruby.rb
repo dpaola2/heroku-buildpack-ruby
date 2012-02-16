@@ -247,10 +247,14 @@ ERROR
   end
 
   def install_sqlite
+    puts "Retrieving sqlite3 source"
     FileUtils.mkdir_p "sqlite3"
     Dir.chdir("sqlite3") do |dir|
-      `curl http://www.davezor.net/sqlite.tgz | tar xvzf -`
-      `gcc -o libtclsqlite3.so -shared tclsqlite3.c -lpthread -ldl -ltcl`
+      puts `curl http://www.sqlite.org/sqlite-autoconf-3071000.tar.gz | tar -xvzf -`
+      Dir.chdir("sqlite-autoconf-3071000") do |d|
+        puts "Building..."
+        puts `./configure --prefix=/app/sqlite3 && make && make install`
+      end
     end
   end
 
