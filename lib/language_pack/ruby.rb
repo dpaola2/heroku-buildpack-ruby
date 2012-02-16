@@ -213,11 +213,18 @@ ERROR
     add_node_js_binary
   end
 
+  def custom_libraries
+    ["sqlite-autoconf-3071000"]
+  end
+
   # vendors binaries into the slug
   def install_binaries
     binaries.each {|binary| install_binary(binary) }
     Dir["bin/*"].each {|path| run("chmod +x #{path}") }
-    install_sqlite
+  end
+  
+  def install_custom_libraries
+    custom_libraries.each {|library| install_library(library) }
   end
 
   # vendors individual binary into the slug
@@ -228,6 +235,14 @@ ERROR
     FileUtils.mkdir_p bin_dir
     Dir.chdir(bin_dir) do |dir|
       run("curl #{VENDOR_URL}/#{name}.tgz -s -o - | tar xzf -")
+    end
+  end
+
+  def install_library(name)
+    lib_dir = "lib"
+    FileUtils.mkdir_p lib_dir
+    Dir.chdir(lib_dir) do |dir|
+      puts `curl #{S3_URL}/#{name}.tgz -s -o - | tar xzf -`
     end
   end
 
