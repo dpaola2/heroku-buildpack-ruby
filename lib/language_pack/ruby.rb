@@ -50,7 +50,6 @@ class LanguagePack::Ruby < LanguagePack::Base
     setup_language_pack_environment
     allow_git do
       install_language_pack_gems
-      install_sqlite
       build_bundler
       create_database_yml
       install_binaries
