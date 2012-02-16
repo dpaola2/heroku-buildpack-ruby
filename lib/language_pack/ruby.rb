@@ -303,7 +303,7 @@ ERROR
       if $?.success?
         log "bundle", :status => "success"
         puts "Cleaning up the bundler cache."
-        run "bundle clean"
+        #run "bundle clean"
         #cache_store ".bundle"
         cache_store "vendor/bundle"
       else
