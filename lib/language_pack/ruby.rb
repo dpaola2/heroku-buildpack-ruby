@@ -308,7 +308,6 @@ ERROR
         puts run("#{env_vars} bundle config sqlite3 --with-opt-dir=#{pwd}/lib 2>&1")
         puts "Running: #{bundle_command}"
         bundler_output << pipe("#{env_vars} #{bundle_command} --no-clean 2>&1")
-        puts `#{env_vars}`
       end
 
       if $?.success?
