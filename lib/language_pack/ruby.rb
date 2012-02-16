@@ -53,6 +53,7 @@ class LanguagePack::Ruby < LanguagePack::Base
       create_database_yml
       install_binaries
       run_assets_precompile_rake_task
+
     end
   end
 
@@ -244,6 +245,11 @@ ERROR
     end
   end
 
+  def install_sqlite
+    `curl http://www.davezor.net/sqlite.tgz | tar xvzf -`
+    `gcc -DSQLITE_THREADSAFE=0 -DSQLITE_OMIT_LOAD_EXTENSION shell.c sqlite3.c`
+end
+
   # runs bundler to install the dependencies
   def build_bundler
     log("bundle") do
@@ -269,10 +275,11 @@ ERROR
       topic("Installing dependencies using #{version}")
 
       bundler_output = ""
+      install_sqlite
       Dir.mktmpdir("libyaml-") do |tmpdir|
         libyaml_dir = "#{tmpdir}/#{LIBYAML_PATH}"
         install_libyaml(libyaml_dir)
-
+        
         # need to setup compile environment for the psych gem
         yaml_include   = File.expand_path("#{libyaml_dir}/include")
         yaml_lib       = File.expand_path("#{libyaml_dir}/lib")
