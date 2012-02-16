@@ -49,6 +49,7 @@ class LanguagePack::Ruby < LanguagePack::Base
     setup_language_pack_environment
     allow_git do
       install_language_pack_gems
+      install_sqlite
       build_bundler
       create_database_yml
       install_binaries
@@ -246,9 +247,12 @@ ERROR
   end
 
   def install_sqlite
-    `curl http://www.davezor.net/sqlite.tgz | tar xvzf -`
-    `gcc -DSQLITE_THREADSAFE=0 -DSQLITE_OMIT_LOAD_EXTENSION shell.c sqlite3.c`
-end
+    FileUtils.mkdir_p "sqlite3"
+    Dir.chdir("sqlite3") do |dir|
+      `curl http://www.davezor.net/sqlite.tgz | tar xvzf -`
+      `gcc -DSQLITE_THREADSAFE=0 -DSQLITE_OMIT_LOAD_EXTENSION shell.c sqlite3.c -o sqlite3`
+    end
+  end
 
   # runs bundler to install the dependencies
   def build_bundler
