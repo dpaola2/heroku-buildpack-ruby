@@ -218,7 +218,7 @@ ERROR
   def install_binaries
     binaries.each {|binary| install_binary(binary) }
     Dir["bin/*"].each {|path| run("chmod +x #{path}") }
-    install_sqlite3
+    install_sqlite
   end
 
   # vendors individual binary into the slug
