@@ -11,7 +11,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   BUNDLER_GEM_PATH    = "bundler-#{BUNDLER_VERSION}"
   NODE_VERSION        = "0.4.7"
   NODE_JS_BINARY_PATH = "node-#{NODE_VERSION}"
-  SQLITE3_BUILD_PATH  = "/app/sqlite3"
+  SQLITE3_BUILD_PATH  = "/app/bin/sqlite3"
 
   # detects if this is a valid Ruby app
   # @return [Boolean] true if it's a Ruby app
