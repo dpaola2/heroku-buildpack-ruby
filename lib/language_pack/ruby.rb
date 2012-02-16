@@ -301,13 +301,14 @@ ERROR
         pwd            = run("pwd").chomp
         # we need to set BUNDLE_CONFIG and BUNDLE_GEMFILE for
         # codon since it uses bundler.
-        env_vars       = "env BUNDLE_GEMFILE=#{pwd}/Gemfile BUNDLE_CONFIG=#{pwd}/.bundle/config CPATH=#{yaml_include}:$CPATH CPPATH=#{yaml_include}:$CPPATH LIBRARY_PATH=#{yaml_lib}:$LIBRARY_PATH RUBYOPT=\"#{syck_hack}\""
-        puts run("#{env_vars} bundle config build.sqlite3-ruby --with-opt-dir=/app/lib 2>&1")
-        puts run("#{env_vars} bundle config sqlite3-ruby --with-opt-dir=/app/lib 2>&1")
-        puts run("#{env_vars} bundle config build.sqlite3 --with-opt-dir=/app/lib 2>&1")
-        puts run("#{env_vars} bundle config sqlite3 --with-opt-dir=/app/lib 2>&1")
+        env_vars       = "env BUNDLE_GEMFILE=#{pwd}/Gemfile BUNDLE_CONFIG=#{pwd}/.bundle/config CPATH=#{yaml_include}:$CPATH CPPATH=#{yaml_include}:$CPPATH LIBRARY_PATH=#{yaml_lib}:$LIBRARY_PATH RUBYOPT=\"#{syck_hack}\" LD_LIBRARY_PATH=#{pwd}/lib"
+        #puts run("#{env_vars} bundle config build.sqlite3-ruby --with-opt-dir=/app/lib 2>&1")
+        #puts run("#{env_vars} bundle config sqlite3-ruby --with-opt-dir=/app/lib 2>&1")
+        #puts run("#{env_vars} bundle config build.sqlite3 --with-opt-dir=/app/lib 2>&1")
+        #puts run("#{env_vars} bundle config sqlite3 --with-opt-dir=/app/lib 2>&1")
         puts "Running: #{bundle_command}"
         bundler_output << pipe("#{env_vars} #{bundle_command} --no-clean 2>&1")
+        puts `#{env_vars}`
       end
 
       if $?.success?
