@@ -1,3 +1,21 @@
+## MODIFIED
+
+This buildpack has been modified to download a custom build of sqlite, build it from source, and set up bundler to configure and build (if specified in the Gemfile) the sqlite3-ruby bindings for sqlite3.
+
+To use, make sure you set your S3_KEY and S3_SECRET environment variables and run:
+
+```
+$ rvm gemset create heroku-buildpack-ruby
+$ bundle install
+$ vulcan create
+$ script/build.rb
+```
+
+If you want, you can then destroy (using heroku destroy) the vulcan server you created.
+
+Then, ensure your project has this buildpack set and you're good to go.
+
+
 Heroku buildpack: Ruby
 ======================
 
